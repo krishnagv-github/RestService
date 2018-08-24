@@ -3,14 +3,17 @@ package trng.samp.rest.controllers;
 import org.springframework.stereotype.Controller;
 import trng.samp.rest.pojo.Customers;
 import trng.samp.rest.services.CustomerServiceInt;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/Customers")
@@ -47,6 +50,13 @@ public class CustomerController {
 	@RequestMapping(value = "/{custID}", method = RequestMethod.DELETE)
 	public boolean deleteCustomer(@PathVariable("custID") long id) {
 		return csi.deleteCustomerByHql(id);
+	}
+	
+	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<?> getCustomers() {
+		long custID = 2;
+		List<Customers> customers = (List<Customers>) csi.loadCustomer(custID);
+		return new ResponseEntity<>(customers, HttpStatus.OK);
 	}
 
 }
