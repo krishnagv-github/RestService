@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import trng.samp.rest.RestApp;
 
+@SpringBootApplication
 public class RestApp {
 
 	public static void main(String[] args) {
